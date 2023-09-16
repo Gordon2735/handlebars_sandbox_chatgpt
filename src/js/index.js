@@ -15,12 +15,12 @@ chatForm.addEventListener('submit', async event => {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			contents: chatForm.contents.value
-			// temperature: 1.0,
-			// max_tokens: 100,
-			// n: 1
-			// stream: true,
-			// stop: ['\n', ' Human:', ' AI:']
+			contents: chatForm.contents.value,
+			temperature: 1.0,
+			max_tokens: 100,
+			n: 1,
+			stream: true,
+			stop: ['\n', ' Human:', ' AI:']
 		}),
 		method: 'POST'
 	});
