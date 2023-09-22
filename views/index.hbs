@@ -16,12 +16,12 @@
 
     <main>
 
+        <section id="responseSection" class="response-section response">
+            <p id="formPara" class="form-para">Hello, ChatGPT:<ul id="paraUL" class="para-UL"></ul></p>
+        </section>
         <form name="chatgpt" id="form" class="form">
             <label for="chatgpt" id="label" class="label">ChatGPT</label>
             <input type="text" name="contents" id="chatgpt" class="chatgpt" placeholder="ask me something..." />
             <button type="submit" name="response" id="submit" class="form-button">Submit</button>
         </form>
-        <section id="responseSection" class="response-section response">
-            <p id="formPara" class="form-para"> Hello, ChatGPT:  {{response}}</p>
-        </section>
     </main>

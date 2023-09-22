@@ -2,13 +2,13 @@
 
 import express from 'express';
 import indexHandler, {
-	indexPostHandler,
+	// indexPostHandler,
 	chatGPTPostHandler
 } from '../routeHandlers/indexHandler.js';
 
 const router = express.Router();
 
-const indexRoute = router.get('/', indexHandler).post('/', indexPostHandler);
+const indexRoute = router.get('/', indexHandler); //.post('/', indexPostHandler);
 
 const chatGPTRoute = router.post('/chatGPT/meta', chatGPTPostHandler);
 

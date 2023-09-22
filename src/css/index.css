@@ -13,6 +13,41 @@
     box-sizing: border-box;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 0.75em;
+}
+
+::-webkit-scrollbar:hover {
+    width: 0.92em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    padding: 0.085em 0.51em 0.085em 0.51em;
+    background: hsla(215, 83%, 84%, 0.993);
+    box-shadow: inset 0 0 5px hsla(0, 0%, 0%, 0.993);
+    border-radius: 1.25em;
+    width: 0.95em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    padding: 0.75em;
+    background: hsla(0, 0%, 53%, 0.593);
+    border-radius: 1.25em;
+    filter: drop-shadow(0 0 13px hsl(246, 100%, 2%));
+    width: 0.92em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: hsla(215, 62%, 33%, 0.993);
+    cursor: pointer;
+    filter: drop-shadow(0 0 13px hsl(246, 100%, 2%));
+    width: 0.97em;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -21,7 +56,7 @@ body {
 }
 
 .header {
-    margin: 2em auto 0.5em 35%;
+    margin: 2em auto 0.5em 75%;
     position: relative;
     display: inline-block;
     align-items: center;
@@ -118,58 +153,119 @@ body {
     z-index: 10;
 }
 
-.form {
-    margin: 2em auto 2em 35%;
+.response-section {
+    margin: 2.4em auto 2em 75%;
+    padding: 0.75em;
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     width: 780px;
+    height: 540px;
+    border: 1px solid hsla(0, 0%, 56%, 0.993);
+    box-shadow: inset 0 0 8px hsla(0, 0%, 0%, 0.993);
+    filter: drop-shadow(0 0 8px hsla(246, 100%, 2%, 0.9));
+    border-radius: 0.75em;
+    z-index: 10;
+}
+
+.response-section .form-para {
+    margin: -2.702em 1.15em -0.05em 0.2em;
+    padding: 2.85em;
+    position: relative;
+    display: inline-flex;
+    text-align: start;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1.30rem;
+    font-weight: 600;
+    text-decoration: underline;
+    color: hsla(56, 87%, 56%, 0.998);
+    text-shadow: 1px 1px 8px hsla(0, 0%, 0%, 0.993);
+}
+
+.form-para .para-UL {
+    padding: 0.15em 2.5em 0 2.5em;
+}
+
+.para-UL .response-li {
+    margin-top: 0em;
+    padding: 0em 1.25em 0em 1.25em;
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    text-align: start;
+    list-style-type: none;
+    text-align: justify;
+    width: 100%;
+    height: 100%;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.96rem;
+    font-weight: 400;
+    color: hsla(213, 94%, 81%, 0.993);
+    line-height: 1.32em;
+    z-index: 10;
+}
+
+.form {
+    margin: 1.65em auto 0em auto;
+    position: absolute;
+    top: 89%;
+    left: 0%;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: left;
+    text-align: start;
+    width: 100%;
 }
 
 .form .label {
-    margin: 1.5em auto 0.5em auto;
+    margin: 0.5em 1em 0.75em auto;
     position: relative;
-    display: inline-block;
-    text-align: center;
+    display: inline-flex;
+    flex-direction: row;
+    text-align: left;
     font-family: 'Source Code Pro', monospace;
-    font-size: 0.75rem;
+    font-size: 0.88rem;
     font-weight: 400;
-    color: hsla(0, 0%, 86%, 0.993);
-    text-shadow: 0 0 3px hsla(0, 0%, 0%, 0.993);
+    color: hsla(103, 86%, 81%, 0.998);
+    text-shadow: 1px 1px 8px hsla(0, 0%, 0%, 0.993);
     z-index: 10;
 }
 
 .form .chatgpt {
-    margin: 0.5em auto 0.5em auto;
-    padding: 0.5em;
+    margin: 0em 0em 0em 0em;
+    padding: 1.25em;
     position: relative;
-    display: inline-block;
-    width: 700px;
-    height: 35px;
-    border-radius: 5px;
+    display: inline-flex;
+    width: 860px;
+    height: auto;
+    border-radius: 3.5px;
     font-family: 'Source Code Pro', monospace;
-    font-size: 0.75rem;
+    font-size: 1.025rem;
     font-weight: 400;
-    color: hsla(0, 0%, 3%, 0.993);
-    filter: drop-shadow(0 0 8px hsla(0, 0%, 0%, 0.993));
+    text-align: left justify;
+    color: hsla(115, 40%, 17%, 0.998);
+    filter: drop-shadow(0 0 8px hsla(0, 0%, 0%, 0.998));
+    border: 3px solid hsla(115, 40%, 17%, 0.998);
+    box-shadow: inset 0 0 8px hsla(0, 0%, 0%, 0.993);
     z-index: 10;
 }
 
 .form-button {
-    margin: 0.5em 1em 0em 5.9em;
+    margin: 0.5em 1em 0em 0.9em;
     position: relative;
     display: block;
     width: 140px;
     height: 30px;
-    background-color: hsla(0, 0%, 61%, 0.993);
+    background-color: hsla(0, 1%, 69%, 0.993);
     align-items: start;
     justify-content: left;
     text-align: center;
     font-family: 'Source Code Pro', monospace;
     font-size: 0.95rem;
-    font-weight: 400;
-    color: hsla(0, 0%, 0%, 0.993);
+    font-weight: 700;
+    color: hsla(215, 62%, 33%, 0.993);
     border-radius: 5px;
     filter: drop-shadow(0 0 8px hsla(0, 0%, 0%, 0.993));
     z-index: 10;
@@ -187,29 +283,4 @@ body {
     background-color: hsla(0, 55%, 23%, 0.193);
     color: hsla(0, 0%, 86%, 0.993);
     filter: drop-shadow(0 0 14px hsla(0, 28%, 79%, 0.593));
-}
-
-.response-section {
-    margin: 0.4em auto 2em 35%;
-    position: relative;
-    display: inline-block;
-    align-items: center;
-    text-align: center;
-    width: 780px;
-    height: 280px;
-    border: 1px solid hsla(0, 0%, 56%, 0.993);
-    border-radius: 1.15em;
-    z-index: 10;
-}
-
-.response-section .form-para {
-    margin: 1.5em 0em 0.5em 1.5em;
-    position: relative;
-    display: block;
-    text-align: start;
-    font-family: 'Source Code Pro', monospace;
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: hsla(0, 0%, 86%, 0.993);
-    z-index: 10;
 }

@@ -1,6 +1,20 @@
 'use strict';
 
-import { generateResponse } from '../chatController.js';
+import {
+	generateResponse
+	// dataCompletionPersistance
+} from '../chatController.js';
+
+// const aggragate = [];
+
+// async function aggragateResponse() {
+// 	for (const responses of dataCompletionPersistance) {
+// 		aggragate.push(responses);
+// 	}
+// 	return aggragate;
+// }
+
+// const aggragation = console.info(aggragateResponse());
 
 async function indexHandler(_req, res) {
 	try {
@@ -9,7 +23,7 @@ async function indexHandler(_req, res) {
 		res.render('index', {
 			title: 'Streaming the ChatGPT API',
 			layout: 'main',
-			response: ''
+			response: ``
 		});
 	} catch (error) {
 		console.error(`indexHandler had an ERROR: ${error}`);
@@ -17,22 +31,24 @@ async function indexHandler(_req, res) {
 	}
 }
 
-async function indexPostHandler(req, res) {
-	try {
-		return;
-	} catch (error) {
-		console.error(`indexPostHandler had an ERROR: ${error}`);
-		res.status(500).send('Server Error');
-	}
-}
+// async function indexPostHandler(req, res) {
+// 	try {
+// 		// await generateResponse(req, res);
+// 		// return aggragateResponse();
+// 	} catch (error) {
+// 		console.error(`indexPostHandler had an ERROR: ${error}`);
+// 		res.status(500).send('Server Error');
+// 	}
+// }
 
 async function chatGPTPostHandler(req, res) {
 	try {
 		return generateResponse(req, res);
+		// return aggragateResponse();
 	} catch (error) {
 		console.error(`indexPostHandler had an ERROR: ${error}`);
 		res.status(500).send('Server Error');
 	}
 }
 
-export { indexHandler as default, indexPostHandler, chatGPTPostHandler };
+export { indexHandler as default, chatGPTPostHandler };
