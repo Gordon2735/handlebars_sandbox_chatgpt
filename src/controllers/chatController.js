@@ -1,52 +1,61 @@
 'use strict';
 
+// import openAi from '../../config/config.js';
 import openAi from '../../config/config.js';
 
-const dataCompletionPersistance = [];
+let dataCompletionPersistence = new Object();
+
+dataCompletionPersistence = [
+	{
+		role: 'system',
+		content:
+			'You are a helpful, empathetic, and friendly customer support specialist. You are here to help customers with their orders. You sometimes make small talk.'
+	},
+	{
+		role: 'system',
+		content:
+			'Additionally, you never ask the customer to upload or provide any photos as our website has no means of doing so at this time. Also, do not mention that you are a bot.'
+	}
+];
 
 async function generateResponse(req, res) {
-	const { contents } = req.body;
+	try {
+		const { contents } = req.body;
 
-	const message = [
-		{
-			role: 'user',
-			content: `${contents}`
-		}
-	];
+		let message = new Object();
 
-	const completion = await openAi.chat.completions.create({
-		model: 'gpt-3.5-turbo-0613',
-		messages: message,
-		max_tokens: 700
-	});
+		message = {
+			role: 'system',
+			content: contents
+		};
 
-	const responses = completion.choices[0].message;
+		const userMessage = message;
 
-	const currentResponse = completion.choices;
-	dataCompletionPersistance.push(responses);
+		dataCompletionPersistence.push(userMessage);
 
-	let completionLastIndex = dataCompletionPersistance.length - 1;
+		// let serializeData = new Object();
+		// serializeData = JSON.stringify({ dataCompletionPersistence });
 
-	for (let responding of dataCompletionPersistance) {
-		if (dataCompletionPersistance.length <= 0) {
-			return res.status(200).json({
-				response: currentResponse[0].message
-			});
-		} else if (dataCompletionPersistance.length > 0) {
-			return res.status(200).json({
-				response: dataCompletionPersistance[completionLastIndex]
-			});
-		} else {
-			res.status(500).json({ response: 'Server Error' }, () => {
-				console.error(
-					`
-						response: dataCompletionPersistance[completionLastIndex] had ERROR:
-						${error}
-					`
-				);
-				return;
-			});
-		}
+		const completion = await openAi.chat.completions.create({
+			model: 'gpt-3.5-turbo-0613',
+			messages: dataCompletionPersistence,
+			max_tokens: 700
+		});
+
+		const responses = completion.choices[0].message.content;
+		const botMessage = { role: 'assistant', content: responses };
+
+		dataCompletionPersistence.push(botMessage);
+
+		return await res.status(200).json({
+			response: responses
+		});
+	} catch (error) {
+		console.error(`
+		The generateResponse() function produced an error in the Try/Catch Block as follows:
+			ERROR: ${await error}
+	`);
 	}
 }
+
 export { generateResponse };

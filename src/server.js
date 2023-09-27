@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static('src'));
 app.use(express.static('views'));
+app.use(express.static(path.join(process.cwd(), 'src')));
 
 app.use('/', router);
 app.use(morgan('dev'));
