@@ -4,7 +4,6 @@ import * as dotenv from 'dotenv';
 import OpenAI from 'openai';
 
 dotenv.config({ path: './config/.env' });
-// dotenv.config({ path: './config/.env' });
 
 const openAi = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY

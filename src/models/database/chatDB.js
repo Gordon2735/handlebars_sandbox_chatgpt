@@ -11,6 +11,7 @@ async function mongooseConnection(goose) {
 				useNewUrlParser: true,
 				useUnifiedTopology: true
 			})
+			.createCollection('chat-messages')
 			.then(() => {
 				console.log('Connected to MongoDB Atlas Database Server');
 			})
@@ -20,6 +21,7 @@ async function mongooseConnection(goose) {
 					error.message
 				);
 			});
+		// use myNewDB;
 	} catch (error) {
 		console.error(
 			'Error connecting to MongoDB Atlas Database Server',

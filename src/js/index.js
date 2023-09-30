@@ -92,6 +92,8 @@ chatForm.addEventListener('submit', async event => {
 			dateQuote.textContent = queryContents.dates;
 			testParagraph.textContent = queryContents.contents;
 
+			//dm ==== Research a way to reveal proper code formatting within a ChatGPT Completion ====
+
 			if (queryContents.contents === '') {
 				testParagraph.textContent = 'No data to display';
 			} else {
