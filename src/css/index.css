@@ -21,7 +21,7 @@ body {
 }
 
 .header {
-    margin: 2em auto 0.5em 51%;
+    margin: 2em auto 0.5em 20%;
     position: relative;
     display: inline-block;
     align-items: center;
@@ -120,7 +120,7 @@ body {
 }
 
 .response-section {
-    margin: 2.4em auto 0em 51%;
+    margin: 2.4em auto 0em 20%;
     padding: 0.75em;
     position: relative;
     display: inline-flex;
@@ -152,7 +152,7 @@ body {
     letter-spacing: 0.5em;
 }
 
-.form-para .para-UL {
+.response-section .para-UL {
     padding: 0.15em 3.5em 0em 3.5em;
 }
 
@@ -176,8 +176,8 @@ body {
 }
 
 .divider-HR {
-    margin-top: 1.75em;
-    padding: 7.75em auto 3.75em auto;
+    margin-top: 0.75em;
+    padding: 2.75em auto 3.75em auto;
     color: hsla(215, 62%, 33%, 0.993);
     text-shadow: 2px 1px 2px hsla(213, 94%, 81%, 0.993);
     filter: drop-shadow(0 0 2px hsla(246, 100%, 2%, 0.9));
@@ -205,7 +205,7 @@ body {
 
 .chat-scroll:hover::-webkit-scrollbar-track-piece {
     background: hsla(215, 83%, 84%, 0.793);
-    transform: fadeIn(2s);
+    transition: fade-in 0.8s ease;
 }
 
 .chat-scroll::-webkit-scrollbar-thumb {
@@ -217,13 +217,13 @@ body {
 .chat-scroll:hover::-webkit-scrollbar-thumb {
     background: hsla(215, 62%, 33%, 0.793);
     border: 0.15em solid hsla(215, 83%, 84%, 0.793);
-    transform: fadeIn(2s);
+    transition: fade-in 0.8s ease;
     /* transition: 0.5s; */
     cursor: pointer;
 }
 
 .form {
-    margin: 1.65em auto 2em 51%;
+    margin: 1.65em auto 2em 20%;
     position: relative;
     display: inline-flex;
     flex-direction: row;
@@ -298,8 +298,8 @@ body {
     box-shadow: inset 1px 1px 5px hsla(213, 94%, 81%, 0.393);
 }
 
-body .section {
-    margin: 0.5em 0em 2em 0em;
+.request-section {
+    margin: 0.5em 0em 2em 58%;
     padding: 2em;
     position: absolute;
     top: 3.85%;
@@ -318,7 +318,7 @@ body .section {
     text-shadow: 1px 1px 2px hsla(215, 62%, 33%, 0.793);
 }
 
-.section .article {
+.request-section .article {
     margin: 0.75em 0em 0.25em 0.5em;
     padding: 0.55em;
     position: relative;
@@ -326,6 +326,10 @@ body .section {
     width: 100%;
     height: auto;
     text-align: start;
+}
+
+.request-section .divider-HR {
+    margin-top: 0.45em;
 }
 
 .article .span {
@@ -374,7 +378,7 @@ body .section {
 
 .test-scroll:hover::-webkit-scrollbar-track-piece {
     background: hsla(215, 83%, 84%, 0.793);
-    transform: fadeIn(2s);
+    transition: opacity 0.8s ease;
 }
 
 .test-scroll::-webkit-scrollbar-thumb {
@@ -386,7 +390,7 @@ body .section {
 .test-scroll:hover::-webkit-scrollbar-thumb {
     background: hsla(215, 62%, 33%, 0.793);
     border: 0.15em solid hsla(215, 83%, 84%, 0.793);
-    transform: fade-in(2s);
+    transition: opacity 0.8s ease;
     /* transition: 0.5s; */
     cursor: pointer;
 }

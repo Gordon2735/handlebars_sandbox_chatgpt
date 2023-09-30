@@ -2,21 +2,11 @@
 
 // import openAi from '../../config/config.js';
 import openAi from '../../config/config.js';
-
-let dataCompletionPersistence = new Object();
-
-dataCompletionPersistence = [
-	{
-		role: 'system',
-		content:
-			'You are a helpful, empathetic, and friendly customer support specialist. You are here to help customers with their orders. You sometimes make small talk.'
-	},
-	{
-		role: 'system',
-		content:
-			'Additionally, you never ask the customer to upload or provide any photos as our website has no means of doing so at this time. Also, do not mention that you are a bot.'
-	}
-];
+import mongoose from 'mongoose';
+import ChatQuestion, {
+	ChatCompletion,
+	ChatInstance
+} from '../models/schemas/ChatCompletionSchema.js';
 
 async function generateResponse(req, res) {
 	try {
@@ -24,32 +14,57 @@ async function generateResponse(req, res) {
 
 		let message = new Object();
 
-		message = {
-			role: 'system',
+		message = [
+			{
+				role: 'system',
+				content: contents
+			}
+		];
+
+		const chatQuestion = new ChatQuestion({
+			role: 'user',
 			content: contents
-		};
+		});
 
-		const userMessage = message;
+		const chatSession = [];
 
-		dataCompletionPersistence.push(userMessage);
+		chatSession.push(message);
 
-		// let serializeData = new Object();
-		// serializeData = JSON.stringify({ dataCompletionPersistence });
+		const messagePersistency = [];
 
 		const completion = await openAi.chat.completions.create({
 			model: 'gpt-3.5-turbo-0613',
-			messages: dataCompletionPersistence,
+			messages: message,
 			max_tokens: 700
 		});
 
 		const responses = completion.choices[0].message.content;
-		const botMessage = { role: 'assistant', content: responses };
 
-		dataCompletionPersistence.push(botMessage);
+		const botMessage = {
+			role: 'assistant',
+			content: responses
+		};
 
-		return await res.status(200).json({
+		messagePersistency.push(botMessage);
+
+		await res.status(200).json({
 			response: responses
+			// response: messagePersistency
 		});
+
+		const chatCompletion = new ChatCompletion(botMessage);
+		let ID = new mongoose.Types.ObjectId();
+
+		const chatInstance = new ChatInstance({
+			id: ID,
+			question: chatQuestion,
+			completion: chatCompletion
+		});
+
+		ID = chatInstance._id;
+		console.log(ID);
+
+		await chatInstance.save();
 	} catch (error) {
 		console.error(`
 		The generateResponse() function produced an error in the Try/Catch Block as follows:
@@ -57,5 +72,4 @@ async function generateResponse(req, res) {
 	`);
 	}
 }
-
 export { generateResponse };

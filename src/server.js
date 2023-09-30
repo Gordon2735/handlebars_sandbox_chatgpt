@@ -8,6 +8,8 @@ import morgan from 'morgan';
 import cors from 'cors';
 import router from './controllers/router.js';
 import helper from '../views/helpers/helpers.js';
+import mongoose from 'mongoose';
+import mongooseConnection from './models/database/chatDB.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +38,14 @@ app.use(express.static(path.join(process.cwd(), 'src')));
 app.use('/', router);
 app.use(morgan('dev'));
 app.use(cors());
+
+// Connect to MongoDB Atlas Database Server
+mongooseConnection(mongoose);
+
+app.use((req, res, next) => {
+	console.log(`${req.method} request for '${req.url}'`);
+	next();
+});
 
 // set Global Variables
 app.use(function (_req, res, next) {

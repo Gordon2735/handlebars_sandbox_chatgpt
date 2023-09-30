@@ -1,7 +1,5 @@
 'use strict';
 
-import formattedDateTime from './date_time.js';
-
 console.info("Welcome to OpenAi's ChatGPT 3-5 turbo-0613");
 
 const chatForm = document.querySelector('.form');
@@ -23,6 +21,11 @@ chatForm.addEventListener('submit', async event => {
 			},
 			body: JSON.stringify({
 				contents: question
+				// temperature: 1.0,
+				// max_tokens: 700
+				// n: 1,
+				// stream: true,
+				// stop: ['\n', ' Role:', ' Content:']
 			})
 		});
 
@@ -37,12 +40,33 @@ chatForm.addEventListener('submit', async event => {
 
 		paraUL.appendChild(responseLi);
 		responseLi.textContent = dataCompletion;
-		responseLi.insertAdjacentHTML('afterend', '<hr class="divider-HR" />');
 
+		paraUL.insertAdjacentElement('beforeend', dividerHR);
+		indexedDB.js--;
 		await scrollbarReveal(scrollHeight, height);
 
 		// Clear the input field
 		inputChunk.value = '';
+
+		// Get the current date and time
+		const now = new Date();
+
+		// Create an options object for formatting the date and time
+		const options = {
+			weekday: 'long', // Full weekday name
+			month: 'long', // Full month name
+			day: 'numeric', // Day of the month
+			year: 'numeric', // 4-digit year
+			hour: '2-digit', // 2-digit hours (12-hour format)
+			minute: '2-digit', // 2-digit minutes
+			second: '2-digit', // 2-digit seconds
+			hour12: true, // Use 12-hour format
+			timezone: 'EST'
+		};
+
+		// Format the date and time according to the options
+		const dateTimeFormatter = new Intl.DateTimeFormat('en-US', options);
+		const formattedDateTime = dateTimeFormatter.format(now);
 
 		console.log(formattedDateTime);
 
@@ -58,9 +82,9 @@ chatForm.addEventListener('submit', async event => {
 		const APIQuestionData = question;
 		const body = document.querySelector('body');
 
-		if (!document.querySelector('.request-section')) {
+		if (!document.querySelector('.section')) {
 			const section = document.createElement('section');
-			section.classList.add('request-section');
+			section.classList.add('section');
 			section.classList.add('test-scroll');
 			body.appendChild(section);
 		}
@@ -76,7 +100,7 @@ chatForm.addEventListener('submit', async event => {
 		message.push(contentData);
 
 		for (let queryContents of message) {
-			const querySection = document.querySelector('.request-section');
+			const querySection = document.querySelector('.section');
 			const article = document.createElement('article');
 			const span = document.createElement('span');
 			const dateQuote = document.createElement('q');
@@ -92,13 +116,10 @@ chatForm.addEventListener('submit', async event => {
 			dateQuote.textContent = queryContents.dates;
 			testParagraph.textContent = queryContents.contents;
 
-			if (queryContents.contents === '') {
-				testParagraph.textContent = 'No data to display';
-			} else {
-				querySection.appendChild(article);
-				article.appendChild(span);
-				article.appendChild(testParagraph);
-			}
+			querySection.appendChild(article);
+			article.appendChild(span);
+			article.appendChild(testParagraph);
+
 			querySection.appendChild(dividerHR);
 		}
 		return;

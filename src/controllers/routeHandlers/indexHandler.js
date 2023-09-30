@@ -9,8 +9,12 @@ async function indexHandler(_req, res) {
 		res.render('index', {
 			title: 'Streaming the ChatGPT API',
 			layout: 'main',
-			// input: ``,
-			response: ``
+			response: [
+				{
+					role: 'assistant',
+					content: ''
+				}
+			]
 		});
 	} catch (error) {
 		console.error(`indexHandler had an ERROR: ${error}`);
