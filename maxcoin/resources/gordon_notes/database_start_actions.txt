@@ -1,0 +1,17 @@
+
+Database Start
+
+Using Docker and MongoDB Compass
+
+Application Dependencies:
+1.	npm i mongodb
+
+
+
+Cranking up the database:
+1. start up docker desktop app
+2. docker pull mongo
+3. docker run --name mongodb -p 37017:27017 -d mongo
+4. docker ps
+5. docker stop mongodb
+6. docker start mongodb

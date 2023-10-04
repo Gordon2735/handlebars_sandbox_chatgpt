@@ -10,6 +10,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"axios": "^1.5.1",
+		"docker": "^0.2.14",
 		"mongodb": "^6.1.0"
 	},
 	"devDependencies": {
