@@ -32,7 +32,7 @@ class MongoBackend {
 	async insert() {
 		const data = await this.coinAPI.fetch();
 		const documents = [];
-		Object.entries(data.bpi).forEach(entry => {
+		Object.entries(data.bpi).forEach((entry) => {
 			documents.push({
 				date: entry[0],
 				value: entry[1]
@@ -41,7 +41,13 @@ class MongoBackend {
 		return this.collection.insertMany(documents);
 	}
 
-	async getMax() {}
+	async getMax() {
+		return this.collection.findOne(
+			{},
+			// { sort: { value: -1 } },
+			{ sort: { date: 1 } }
+		);
+	}
 
 	async max() {
 		console.info('Connecting to MongoDB...');
@@ -63,10 +69,20 @@ class MongoBackend {
 			`Inserted ${insertResult.insertedCount} documents into MongoDB`
 		);
 
+		console.info('Querying MongoDB...');
+		console.time('mongodb-find');
+		const doc = await this.getMax();
+		console.timeEnd('mongodb-find');
+
 		console.info('Disconnecting from MongoDB...');
 		console.time('mongodb-disconnect');
 		await this.disconnect();
 		console.timeEnd('mongodb-disconnect');
+
+		return {
+			date: doc.date,
+			value: doc.value
+		};
 	}
 }
 

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const routeHandler = require('./routes');
 
-module.exports = config => {
+module.exports = (config) => {
 	const app = express();
 
 	// view engine setup

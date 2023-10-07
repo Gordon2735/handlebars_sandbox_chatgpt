@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\maxcoin",
+    "\\maxcoin\\services",
+    "\\maxcoin\\services\\backend"
+  ],
+  "SelectedNode": "\\maxcoin\\services\\backend\\MongoBackend.js",
+  "PreviewInSolutionExplorer": false
+}
