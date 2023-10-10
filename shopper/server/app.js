@@ -2,7 +2,10 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const RedisStore = require('connect-redis').default; // (session) is deprecated
 const routeHandler = require('./routes');
+const UserService = require('./services/UserService.js');
+const BasketService = require('./services/BasketService.js');
 
 module.exports = (config) => {
 	const app = express();
@@ -15,9 +18,12 @@ module.exports = (config) => {
 	app.use(bodyParser.urlencoded({ extended: false }));
 
 	app.set('trust proxy', 1); // trust first proxy
+
+	const sessionStore = new RedisStore({ client: config.redis.client });
 	app.use(
 		session({
-			secret: 'very secret secret to encyrpt session',
+			store: sessionStore,
+			secret: 'very secret secret to encrypt session',
 			resave: false,
 			saveUninitialized: false
 		})
@@ -41,6 +47,27 @@ module.exports = (config) => {
 			req.session.messages = [];
 		}
 		res.locals.messages = req.session.messages;
+
+		if (req.session.userId) {
+			try {
+				res.locals.currentUser = await UserService.getOne(
+					req.session.userId
+				);
+				const basket = new BasketService(
+					config.redis.client,
+					req.session.userId
+				);
+				let basketCount = 0;
+				const basketContent = await basket.getAll();
+				Object.keys(basketContent).forEach((itemId) => {
+					basketCount += parseInt(basketContent[itemId], 10);
+				});
+				res.locals.basketCount = basketCount;
+			} catch (error) {
+				console.error(error);
+				return next(error);
+			}
+		}
 		return next();
 	});
 
